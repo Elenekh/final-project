@@ -1,0 +1,226 @@
+import json #stores user information
+from datetime import datetime #for dates
+
+
+#log in/sign up
+def register(filename): #function for registering new user
+    try: # to read file specified by filename
+        with open(filename, 'r') as file: # used with so that file is closed after everything.
+            data = json.load(file) # to store the data
+    except FileNotFoundError: #  If any error occurs in the try block, 
+        # Python will skip the rest of the code in try and jump to the except block. 
+        data = {"usernames": [], "passwords": []} # this is where all the data will be stored
+
+    while True: 
+        username = input("Choose your username: ").strip()
+        password = input("Choose your password: ").strip()
+
+        if username in data["usernames"]: # Ensure that the username is unique
+            print("Username already taken! Please choose a different username.")
+        else:
+            # Append the new user's details to the data
+            data["usernames"].append(username)
+            data["passwords"].append(password)
+
+            with open(filename, 'w') as file: # Save the updated data to the JSON file
+                json.dump(data, file, indent=4) # indent=4 for formatting nicely
+            
+            print(f"Registration successful! Welcome, {username}!")
+            break
+
+def login(filename):
+    try: # Load existing data from the file
+        with open(filename, 'r') as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        print("No users found. Please register first.")
+        return
+
+    while True:
+        username = input("Enter your username: ").strip()
+        password = input("Enter your password: ").strip()
+
+        # Check if the username exists and if the password is correct
+        if username in data["usernames"]:
+            index = data["usernames"].index(username)
+            if data["passwords"][index] == password:
+                print(f"Welcome back, {username}!")
+                break
+            else:
+                print("Incorrect password! Please try again.")
+        else:
+            print("Username not found! Please check and try again.")
+
+# Main loop
+def main():
+    filename = "user_data.json"  # JSON file where user data will be stored
+
+    while True:
+        print("\n--- Welcome to the User Registration and Login System ---")
+        account_ans = input("Choose an option: \na) Sign Up \nb) Login and Shop \nc) Quit\nYour choice: ").strip().lower()
+
+        if account_ans == "a":
+            register(filename)
+        elif account_ans == "b":
+            login(filename)
+        elif account_ans == "c":
+            print("Goodbye! Have a great day!")
+            break
+        else:
+            print("Invalid option. Please choose a valid option from a, b, or c.")
+
+
+#task management system 
+def create_task(tasks):
+    title = input("Enter task title: ").strip()
+    description = input("Enter task description: ").strip()
+    due_date = input("Enter due date (YYYY-MM-DD): ").strip()
+    priority = input("Set priority (High, Medium, Low): ").strip().capitalize()
+    color = input("Choose a color code (e.g., Red, Green, Blue): ").strip()
+
+    task = { #basically task details
+        "title": title,
+        "description": description,
+        "due_date": due_date,
+        "priority": priority,
+        "color": color,
+        "completed": False
+    }
+    tasks.append(task)
+    print("Task created successfully!")
+
+def edit_task(tasks):
+    list_tasks(tasks) #this will list all the tasks
+    task_id = int(input("Enter the task number to edit: ")) - 1 #lists are indexed so -1
+
+    if 0 <= task_id < len(tasks): #ensures the correct task is picked
+        print("Leave fields blank to keep current values.")
+        task = tasks[task_id]
+
+        title = input(f"New title ({task['title']}): ").strip()
+        description = input(f"New description ({task['description']}): ").strip()
+        due_date = input(f"New due date ({task['due_date']}): ").strip()
+        priority = input(f"New priority ({task['priority']}): ").strip().capitalize()
+        color = input(f"New color code ({task['color']}): ").strip()
+
+        task["title"] = title or task["title"]
+        task["description"] = description or task["description"]
+        task["due_date"] = due_date or task["due_date"]
+        task["priority"] = priority or task["priority"]
+        task["color"] = color or task["color"]
+
+        print("Task updated successfully!")
+    else:
+        print("Invalid task number.")
+
+def delete_task(tasks):
+    list_tasks(tasks)
+    task_id = int(input("Enter the task number to delete: ")) - 1
+
+    if 0 <= task_id < len(tasks): #same logic, but just for deleting 
+        tasks.pop(task_id)
+        print("Task deleted successfully!")
+    else:
+        print("Invalid task number.")
+
+def list_tasks(tasks, filter_by=None): #goes through tasks, and theres no filter on rn
+    if not tasks: 
+        print("No tasks available.")
+        return
+
+    for i, task in enumerate(tasks, 1): #goes through every tasks, through index as well. since python starts from 0, it also ensures everything is dysplayed human way
+        if filter_by and task["priority"] != filter_by: #if priority and task are in accordance with eachother
+            continue
+
+        print(f"\nTask {i}:") #as i is index
+        print(f"  Title: {task['title']}") #everything here are task details based on task index
+        print(f"  Description: {task['description']}")
+        print(f"  Due Date: {task['due_date']}")
+        print(f"  Priority: {task['priority']}")
+        print(f"  Color Code: {task['color']}")
+        print(f"  Completed: {'Yes' if task['completed'] else 'No'}")
+
+def mark_task_complete(tasks):
+    list_tasks(tasks)
+    task_id = int(input("Enter the task number to mark as complete: ")) - 1
+
+    if 0 <= task_id < len(tasks):
+        tasks[task_id]["completed"] = True
+        print("Task marked as complete!")
+    else:
+        print("Invalid task number.")
+
+def task_analytics(tasks):
+    total_tasks = len(tasks)
+    completed_tasks = sum(task["completed"] for task in tasks)
+    pending_tasks = total_tasks - completed_tasks
+
+    print("\n--- Task Analytics ---")
+    print(f"Total tasks: {total_tasks}")
+    print(f"Completed tasks: {completed_tasks}")
+    print(f"Pending tasks: {pending_tasks}")
+
+# Main Menu
+
+def main():
+    filename = "user_data.json"
+
+    while True:
+        print("\n--- Task Management System ---")
+        print("1. Register")
+        print("2. Login")
+        print("3. Exit")
+
+        choice = input("Choose an option: ").strip()
+
+        if choice == "1":
+            username = register(filename)
+        elif choice == "2":
+            username = login(filename)
+
+            if username:
+                with open(filename, 'r') as file:
+                    data = json.load(file)
+
+                tasks = data["users"][username]["tasks"]
+
+                while True:
+                    print("\n--- Task Menu ---")
+                    print("1. Create Task")
+                    print("2. Edit Task")
+                    print("3. Delete Task")
+                    print("4. List Tasks")
+                    print("5. Mark Task Complete")
+                    print("6. Task Analytics")
+                    print("7. Logout")
+
+                    task_choice = input("Choose an option: ").strip()
+
+                    if task_choice == "1":
+                        create_task(tasks)
+                    elif task_choice == "2":
+                        edit_task(tasks)
+                    elif task_choice == "3":
+                        delete_task(tasks)
+                    elif task_choice == "4":
+                        filter_choice = input("Filter by priority (High, Medium, Low) or leave blank: ").strip().capitalize()
+                        list_tasks(tasks, filter_by=filter_choice or None)
+                    elif task_choice == "5":
+                        mark_task_complete(tasks)
+                    elif task_choice == "6":
+                        task_analytics(tasks)
+                    elif task_choice == "7":
+                        with open(filename, 'w') as file:
+                            json.dump(data, file, indent=4)
+                        print("Logged out successfully!")
+                        break
+                    else:
+                        print("Invalid option! Please try again.")
+        elif choice == "3":
+            print("Goodbye! Have a great day!")
+            break
+        else:
+            print("Invalid option! Please try again.")
+
+if __name__ == "__main__": # only when the script is run directly
+    main()
