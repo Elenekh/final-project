@@ -1,0 +1,211 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penguin Themed To-Do List - History</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Quicksand', sans-serif;
+            background: url('https://via.placeholder.com/ffffff/000000') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: relative;
+        }
+        header {
+            background-color: rgba(28, 133, 211, 0.9);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            font-size: 2em;
+        }
+        .dashboard {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        .sidebar {
+            background-color: rgba(135, 206, 250, 0.9);
+            color: white;
+            padding: 20px;
+            width: 3.5cm;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar h2 {
+            font-size: 1.5em;
+            margin: 0;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        .sidebar ul li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #1c85d3;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .sidebar ul li.active {
+            background-color: #145a9e;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+        }
+        .todo-list {
+            flex: 1;
+            overflow-y: auto;
+            list-style: none;
+            padding: 0;
+        }
+        .todo-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+        .todo-item button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+        .todo-item button:hover {
+            background-color: #cc0000;
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        .top-left-icons {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .logout-btn {
+            background-color: #1c85d3;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .logout-btn:hover {
+            background-color: #145a9e;
+        }
+        .history-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            margin: 0;
+        }
+        .history-header {
+            font-size: 1.5em;
+            text-align: center;
+            font-weight: bold;
+        }
+        .history-item {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .history-item h4 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+        .history-item p {
+            margin: 0;
+            font-size: 1em;
+            color: #555;
+        }
+        .history-footer {
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>Waddle-Board</header>
+
+    <div class="top-left-icons">
+        <img src="C:\Users\maria\OneDrive\Desktop\50.jpg" alt="Profile" class="profile-img" />
+        <button class="logout-btn">Logout</button>
+    </div>
+
+    <div class="dashboard">
+        <div class="sidebar">
+            <h2>Menu</h2>
+            <ul>
+                <li class="active">History</li>
+            </ul>
+        </div>
+        <div class="content" id="content">
+            <div id="history" class="page active">
+                <div class="history-section">
+                    <div class="history-header">Completed Tasks History</div>
+                    
+                    <div class="history-item">
+                        <div>
+                            <h4>Task 1</h4>
+                        </div>
+                        <button>View Details</button>
+                    </div>
+
+                    <div class="history-item">
+                        <div>
+                            <h4>Task 2</h4>
+                        </div>
+                        <button>View Details</button>
+                    </div>
+
+                    <div class="history-item">
+                        <div>
+                            <h4>Task 3</h4>
+                        </div>
+                        <button>View Details</button>
+                    </div>
+                </div>
+
+                <div class="history-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
