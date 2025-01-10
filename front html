@@ -4,60 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Penguin Themed To-Do List</title>
-    <link rel="stylesheet" href="front2css.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="todocss1.css">
 </head>
 <body>
     <header>Waddle-Board</header>
 
+    <div class="top-left-icons">
+        <img src="C:\Users\maria\OneDrive\Desktop\50.jpg" alt="Profile" class="profile-img" />
+        <button class="logout-btn">Logout</button>
+    </div>
+
     <div class="dashboard">
         <div class="sidebar">
             <h2>Menu</h2>
-            <ul>
-                <li class="menu-item active">Dashboard</li>
-                <li class="menu-item">Settings</li>
-                <li class="menu-item">Profile</li>
-                <li class="menu-item">History</li>
-            </ul>
         </div>
-
         <div class="content" id="content">
-            <div id="dashboard" class="page active">
-                <div class="todo-input">
-                    <input type="text" id="task-input" placeholder="Add a new task...">
-                    <button>Add</button>
+            <div id="dashboard" class="page active"></div>
+
+            <div class="priority-section">
+                <div class="priority-column red">
+                    <div>High</div>
+                    <button class="add-new-btn">+</button>
                 </div>
 
-                <div class="board">
-                    <div class="column" id="todo-column">
-                        <h3>To Do</h3>
-                        <ul id="todo-list" class="todo-list"></ul>
-                    </div>
+                <div class="priority-column yellow">
+                    <div>Medium</div>
+                    <button class="add-new-btn">+</button>
+                </div>
 
-                    <div class="column" id="in-progress-column">
-                        <h3>In Progress</h3>
-                        <ul id="in-progress-list" class="todo-list"></ul>
-                    </div>
-
-                    <div class="column" id="done-column">
-                        <h3>Done</h3>
-                        <ul id="done-list" class="todo-list"></ul>
-                    </div>
+                <div class="priority-column green">
+                    <div>Low</div>
+                    <button class="add-new-btn">+</button>
                 </div>
             </div>
 
-            <div id="settings" class="page">
-                <h2>Settings Page</h2>
-                <p>Here you can adjust your settings, such as theme or notifications.</p>
-            </div>
+            <div class="board">
+                <div class="column">
+                    <h3>To Start</h3>
+                    <button class="add-new-btn">+</button>
+                    <ul class="todo-list">
+                        <li class="todo-item">
+                            Task 1
+                            <span>
+                                <span class="edit-icon">✎</span>
+                                <span class="delete-icon">❌</span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
 
-            <div id="profile" class="page">
-                <h2>Profile Page</h2>
-                <p>Here you can view and edit your profile details, such as your name and email.</p>
-            </div>
+                <div class="column">
+                    <h3>In Progress</h3>
+                </div>
 
-            <div id="history" class="page">
-                <h2>History Page</h2>
-                <p>This is where your past tasks and actions are stored. You can review your completed tasks here.</p>
+                <div class="column">
+                    <h3>Completed</h3>
+                </div>
             </div>
         </div>
     </div>
