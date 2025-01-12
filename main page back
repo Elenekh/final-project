@@ -1,172 +1,205 @@
-import json #stores user information
-from datetime import datetime #for dates
+import json #stores user data
+from datetime import datetime #for deadlines
 
+# Function to process date and check if it's valid
+def parse_date(date_str):
+    try: #one who executes 
+        return datetime.strptime(date_str, "%Y-%m-%d") #converts to smth datetime understands
+    except ValueError: #one who's in charge if theres an error
+        print("Invalid date format. Please use YYYY-MM-DD.")
+        return None #LOL FAILURE
 
-#log in/sign up
-def register(filename): #function for registering new user
-    try: # to read file specified by filename
-        with open(filename, 'r') as file: # used with so that file is closed after everything.
-            data = json.load(file) # to store the data
-    except FileNotFoundError: #  If any error occurs in the try block, 
-        # Python will skip the rest of the code in try and jump to the except block. 
-        data = {"usernames": [], "passwords": []} # this is where all the data will be stored
-
-    while True: 
-        username = input("Choose your username: ").strip()
-        password = input("Choose your password: ").strip()
-
-        if username in data["usernames"]: # Ensure that the username is unique
-            print("Username already taken! Please choose a different username.")
-        else:
-            # Append the new user's details to the data
-            data["usernames"].append(username)
-            data["passwords"].append(password)
-
-            with open(filename, 'w') as file: # Save the updated data to the JSON file
-                json.dump(data, file, indent=4) # indent=4 for formatting nicely
-            
-            print(f"Registration successful! Welcome, {username}!")
-            break
-
-def login(filename):
-    try: # Load existing data from the file
-        with open(filename, 'r') as file:
-            data = json.load(file)
-    except FileNotFoundError:
-        print("No users found. Please register first.")
+# Function to save tasks to the file
+def save_tasks(filename, username, tasks):
+    with open(filename, "r") as file: #opens file + closes in the end
+        data = json.load(file) #then loads the data from the file
+    data["users"][username]["tasks"] = tasks #gets users section data of specific usesr, 
+    #then gets to their task section and updates with new task
+    with open(filename, "w") as file: #now in write mode
+        json.dump(data, file, indent=4) #converts it to json readable language
+ 
+# Function to create a new task and assign it to a column
+def create_task(tasks, filename, username): # current task dict + json file for saving + user who creates it
+    print("\n CREATE NEW WADDLETASK")
+    title = input("Enter WaddleTask title: ").strip()
+    description = input("Enter WaddleTask description: ").strip()
+    due_date_str = input("Enter due date (YYYY-MM-DD): ").strip()
+    due_date = parse_date(due_date_str)
+    if not due_date:
         return
 
-    while True:
-        username = input("Enter your username: ").strip()
-        password = input("Enter your password: ").strip()
-
-        # Check if the username exists and if the password is correct
-        if username in data["usernames"]:
-            index = data["usernames"].index(username)
-            if data["passwords"][index] == password:
-                print(f"Welcome back, {username}!")
-                break
-            else:
-                print("Incorrect password! Please try again.")
-        else:
-            print("Username not found! Please check and try again.")
-
-# Main loop
-def main():
-    filename = "user_data.json"  # JSON file where user data will be stored
-
-    while True:
-        print("\n--- Welcome to the User Registration and Login System ---")
-        account_ans = input("Choose an option: \na) Sign Up \nb) Login and Shop \nc) Quit\nYour choice: ").strip().lower()
-
-        if account_ans == "a":
-            register(filename)
-        elif account_ans == "b":
-            login(filename)
-        elif account_ans == "c":
-            print("Goodbye! Have a great day!")
-            break
-        else:
-            print("Invalid option. Please choose a valid option from a, b, or c.")
-
-
-#task management system 
-def create_task(tasks):
-    title = input("Enter task title: ").strip()
-    description = input("Enter task description: ").strip()
-    due_date = input("Enter due date (YYYY-MM-DD): ").strip()
     priority = input("Set priority (High, Medium, Low): ").strip().capitalize()
-    color = input("Choose a color code (e.g., Red, Green, Blue): ").strip()
 
-    task = { #basically task details
+    print("\n CHOOSE A COLUMN FOR THIS WADDLETASK ")
+    print("1. To-Do")
+    print("2. In Progress")
+    print("3. Done")
+
+    column_choice = input("Select column (1, 2, 3): ").strip()
+
+    column_mapping = {
+        "1": "To-Do",
+        "2": "In Progress",
+        "3": "Done"
+    }
+    #maps column numbers to names
+    column = column_mapping.get(column_choice, "To-Do")  # Default to "To-Do" if invalid input
+    
+    task = {
         "title": title,
         "description": description,
-        "due_date": due_date,
+        "due_date": due_date_str,
         "priority": priority,
-        "color": color,
         "completed": False
     }
-    tasks.append(task)
-    print("Task created successfully!")
+#creates task dict -> appends task to column -> saves it in save_tasks 
+    tasks[column].append(task)
+    save_tasks(filename, username, tasks)
+    print(f"WaddleTask created successfully and added to '{column}' column!")
 
-def edit_task(tasks):
-    list_tasks(tasks) #this will list all the tasks
-    task_id = int(input("Enter the task number to edit: ")) - 1 #lists are indexed so -1
+# Function to list tasks in all columns -> further organization
+def list_tasks(tasks):
+    if not any(tasks[column] for column in tasks): #iterates through columns
+        print("No WaddleTasks available.")
+        return
 
-    if 0 <= task_id < len(tasks): #ensures the correct task is picked
+    for column in tasks:
+        print(f"\n {column} ")
+        if not tasks[column]:
+            print("No WaddleTasks in this column.")
+            continue
+
+        for i, task in enumerate(tasks[column], 1): #goes through every detail, plus starts from 1 cuz it's mor humane
+            print(f"\nTask {i}:")
+            print(f"  Title: {task['title']}")
+            print(f"  Description: {task['description']}")
+            print(f"  Due Date: {task['due_date']}")
+            print(f"  Priority: {task['priority']}")
+            print(f"  Completed: {'Yes' if task['completed'] else 'No'}")
+
+# Function to handle "All Tasks" menu
+def all_tasks_menu(tasks, filename, username):
+    while True:
+        list_tasks(tasks)
+        print("\nALL TASKS MENU")
+        print("1. Edit Task")
+        print("2. Delete Task")
+        print("3. Exit to Main Menu")
+        
+        choice = input("Choose an option: ").strip()
+
+        if choice == "1":
+            edit_task(tasks, filename, username)
+        elif choice == "2":
+            delete_task(tasks, filename, username)
+        elif choice == "3":
+            break
+        else:
+            print("Invalid option! Please try again.")
+
+# Function to edit an existing task
+def edit_task(tasks, filename, username):
+    list_tasks(tasks)
+    column_choice = input("Enter the column where the WaddleTask exists (To-Do, In Progress, Done): ").strip().capitalize()
+
+    if column_choice not in tasks or not tasks[column_choice]:
+        print("Invalid column or no tasks available.")
+        return
+
+    task_id = int(input("Enter the WaddleTask number to edit: ")) - 1 # -1 cuz it 0 in comp language
+
+    if 0 <= task_id < len(tasks[column_choice]): #checks if that task is within valid bounds
         print("Leave fields blank to keep current values.")
-        task = tasks[task_id]
+        task = tasks[column_choice][task_id]
 
         title = input(f"New title ({task['title']}): ").strip()
         description = input(f"New description ({task['description']}): ").strip()
-        due_date = input(f"New due date ({task['due_date']}): ").strip()
+        due_date_str = input(f"New due date ({task['due_date']}): ").strip()
         priority = input(f"New priority ({task['priority']}): ").strip().capitalize()
-        color = input(f"New color code ({task['color']}): ").strip()
 
         task["title"] = title or task["title"]
         task["description"] = description or task["description"]
-        task["due_date"] = due_date or task["due_date"]
+        task["due_date"] = due_date_str or task["due_date"]
         task["priority"] = priority or task["priority"]
-        task["color"] = color or task["color"]
 
-        print("Task updated successfully!")
+        save_tasks(filename, username, tasks)
+        print("WaddleTask updated successfully!")
     else:
-        print("Invalid task number.")
+        print("Invalid Waddletask number.")
 
-def delete_task(tasks):
+# Function to delete a task
+def delete_task(tasks, filename, username):
     list_tasks(tasks)
-    task_id = int(input("Enter the task number to delete: ")) - 1
+    column_choice = input("Enter the column where the WaddleTask exists (To-Do, In Progress, Done): ").strip().capitalize()
 
-    if 0 <= task_id < len(tasks): #same logic, but just for deleting 
-        tasks.pop(task_id)
-        print("Task deleted successfully!")
-    else:
-        print("Invalid task number.")
-
-def list_tasks(tasks, filter_by=None): #goes through tasks, and theres no filter on rn
-    if not tasks: 
-        print("No tasks available.")
+    if column_choice not in tasks or not tasks[column_choice]:
+        print("Invalid column or no tasks available.")
         return
 
-    for i, task in enumerate(tasks, 1): #goes through every tasks, through index as well. since python starts from 0, it also ensures everything is dysplayed human way
-        if filter_by and task["priority"] != filter_by: #if priority and task are in accordance with eachother
-            continue
+    task_id = int(input("Enter the WaddleTask number to delete: ")) - 1
 
-        print(f"\nTask {i}:") #as i is index
-        print(f"  Title: {task['title']}") #everything here are task details based on task index
-        print(f"  Description: {task['description']}")
-        print(f"  Due Date: {task['due_date']}")
-        print(f"  Priority: {task['priority']}")
-        print(f"  Color Code: {task['color']}")
-        print(f"  Completed: {'Yes' if task['completed'] else 'No'}")
-
-def mark_task_complete(tasks):
-    list_tasks(tasks)
-    task_id = int(input("Enter the task number to mark as complete: ")) - 1
-
-    if 0 <= task_id < len(tasks):
-        tasks[task_id]["completed"] = True
-        print("Task marked as complete!")
+    if 0 <= task_id < len(tasks[column_choice]):
+        tasks[column_choice].pop(task_id)
+        save_tasks(filename, username, tasks)
+        print("WaddleTask deleted successfully!")
     else:
-        print("Invalid task number.")
+        print("Invalid WaddleTask number.")
 
-def task_analytics(tasks):
-    total_tasks = len(tasks)
-    completed_tasks = sum(task["completed"] for task in tasks)
-    pending_tasks = total_tasks - completed_tasks
+# Function to handle user login
+def login(filename):
+    print("\n LOGIN ")
+    username = input("Enter username: ").strip()
 
-    print("\n--- Task Analytics ---")
-    print(f"Total tasks: {total_tasks}")
-    print(f"Completed tasks: {completed_tasks}")
-    print(f"Pending tasks: {pending_tasks}")
+    try:
+        with open(filename, 'r') as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        print("User data not found. Please register first.")
+        return None
 
-# Main Menu
+    if username in data["users"]:
+        password = input("Enter password: ").strip()
+        if data["users"][username]["password"] == password:
+            print(f"Welcome back, {username}!")
+            return username
+        else:
+            print("Incorrect password!")
+            return None
+    else:
+        print("Username not found! Please register first.")
+        return None
 
+# Function to handle user registration
+def register(filename):
+    print("\n REGISTER ")
+    username = input("Enter username: ").strip()
+
+    try:
+        with open(filename, 'r') as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        data = {"users": {}}
+
+    if username in data["users"]:
+        print("Username already exists! Please log in.")
+        return None
+    else:
+        password = input("Enter password: ").strip()
+        data["users"][username] = {
+            "password": password,
+            "tasks": {"To-Do": [], "In Progress": [], "Done": []}
+        }
+        with open(filename, 'w') as file:
+            json.dump(data, file, indent=4)
+        print(f"User '{username}' registered successfully!")
+        return username
+
+# Main menu function
 def main():
     filename = "user_data.json"
 
     while True:
-        print("\n--- Task Management System ---")
+        print("\n WADDLEBOARD ")
         print("1. Register")
         print("2. Login")
         print("3. Exit")
@@ -175,52 +208,45 @@ def main():
 
         if choice == "1":
             username = register(filename)
-        elif choice == "2":
-            username = login(filename)
-
             if username:
                 with open(filename, 'r') as file:
                     data = json.load(file)
-
                 tasks = data["users"][username]["tasks"]
+                task_menu(tasks, filename, username)
 
-                while True:
-                    print("\n--- Task Menu ---")
-                    print("1. Create Task")
-                    print("2. Edit Task")
-                    print("3. Delete Task")
-                    print("4. List Tasks")
-                    print("5. Mark Task Complete")
-                    print("6. Task Analytics")
-                    print("7. Logout")
+        elif choice == "2":
+            username = login(filename)
+            if username:
+                with open(filename, 'r') as file:
+                    data = json.load(file)
+                tasks = data["users"][username]["tasks"]
+                task_menu(tasks, filename, username)
 
-                    task_choice = input("Choose an option: ").strip()
-
-                    if task_choice == "1":
-                        create_task(tasks)
-                    elif task_choice == "2":
-                        edit_task(tasks)
-                    elif task_choice == "3":
-                        delete_task(tasks)
-                    elif task_choice == "4":
-                        filter_choice = input("Filter by priority (High, Medium, Low) or leave blank: ").strip().capitalize()
-                        list_tasks(tasks, filter_by=filter_choice or None)
-                    elif task_choice == "5":
-                        mark_task_complete(tasks)
-                    elif task_choice == "6":
-                        task_analytics(tasks)
-                    elif task_choice == "7":
-                        with open(filename, 'w') as file:
-                            json.dump(data, file, indent=4)
-                        print("Logged out successfully!")
-                        break
-                    else:
-                        print("Invalid option! Please try again.")
         elif choice == "3":
             print("Goodbye! Have a great day!")
             break
         else:
             print("Invalid option! Please try again.")
 
-if __name__ == "__main__": # only when the script is run directly
+# Task menu function after login/registration
+def task_menu(tasks, filename, username):
+    while True:
+        print("\n WADDLETASK MENU ")
+        print("1. All Tasks")
+        print("2. Create Task")
+        print("3. Exit")
+
+        task_choice = input("Choose an option: ").strip()
+
+        if task_choice == "1":
+            all_tasks_menu(tasks, filename, username)
+        elif task_choice == "2":
+            create_task(tasks, filename, username)
+        elif task_choice == "3":
+            print("Logging out...")
+            break
+        else:
+            print("Invalid option! Please try again.")
+
+if __name__ == "__main__":
     main()
