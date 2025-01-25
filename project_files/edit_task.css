@@ -1,0 +1,114 @@
+body {
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
+    background-color: #f0e5d8;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+header {
+    background-color: rgba(28, 133, 211, 0.9);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 2em;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.form-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 60%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+h1 {
+    font-size: 1.5em;
+    text-align: center;
+    margin: 0;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"],
+textarea,
+select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 1em;
+    width: 100%;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+input[type="text"]::placeholder,
+textarea::placeholder {
+    color: #aaa;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #1c85d3;
+    outline: none;
+    background-color: #fff;
+}
+
+select {
+    background-image: linear-gradient(45deg, transparent 50%, #1c85d3 50%),
+                      linear-gradient(135deg, #1c85d3 50%, transparent 50%);
+    background-position: calc(100% - 15px) calc(1.2em), calc(100% - 10px) calc(1.2em);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+button {
+    padding: 10px;
+    background-color: #1c85d3;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    align-self: center;
+    width: 50%;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #145a9e;
+}
+
+.select-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.select-wrapper::after {
+    content: "▼";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8em;
+    color: #1c85d3;
+    pointer-events: none;
+}

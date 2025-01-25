@@ -1,0 +1,48 @@
+import json
+def register(filename): #function for registering new user
+    try: # to read file specified by filename
+        with open(filename, 'r') as file: # used with so that file is closed after everything.
+            data = json.load(file) # to store the data
+    except FileNotFoundError: #  If any error occurs in the try block, 
+        # Python will skip the rest of the code in try and jump to the except block. 
+        data = {"usernames": [], "passwords": []} # this is where all the data will be stored
+
+    while True: 
+        username = input("Choose your username: ").strip()
+        password = input("Choose your password: ").strip()
+
+        if username in data["usernames"]: # Ensure that the username is unique
+            print("Username already taken! Please choose a different username.")
+        else:
+            # Append the new user's details to the data
+            data["usernames"].append(username)
+            data["passwords"].append(password)
+
+            with open(filename, 'w') as file: # Save the updated data to the JSON file
+                json.dump(data, file, indent=4) # indent=4 for formatting nicely
+            
+            print(f"Registration successful! Welcome, {username}!")
+            break
+
+def login(filename):
+    try: # Load existing data from the file
+        with open(filename, 'r') as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        print("No users found. Please register first.")
+        return
+
+    while True:
+        username = input("Enter your username: ").strip()
+        password = input("Enter your password: ").strip()
+
+        # Check if the username exists and if the password is correct
+        if username in data["usernames"]:
+            index = data["usernames"].index(username)
+            if data["passwords"][index] == password:
+                print(f"Welcome back, {username}!")
+                break
+            else:
+                print("Incorrect password! Please try again.")
+        else:
+            print("Username not found! Please check and try again.")

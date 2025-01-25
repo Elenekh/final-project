@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waddle-Board</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="edit_task.css">
+</head>
+<body>
+    <header>Waddle-Board</header>
+    <div class="form-container">
+        <h1>Edit Task</h1>
+        <form method="POST">
+            <label for="Title">Title:</label>
+            <input type="text" id="Title" name="Title" placeholder="Enter task title">
+
+            <label for="Description">Description:</label>
+            <textarea id="Description" name="Description" rows="3" placeholder="Enter task description"></textarea>
+
+            <label for="Due_date">Due Date:</label>
+            <input type="date" id="Due_date" name="Due_date" placeholder="Select due date">
+
+            <label for="Priority">Priority:</label>
+            <div class="select-wrapper">
+                <select id="Priority" name="Priority">
+                    <option value="" disabled selected>Select priority</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+
+            <label for="Status">Status:</label>
+            <div class="select-wrapper">
+                <select id="Status" name="Status">
+                    <option value="" disabled selected>Select status</option>
+                    <option value="to_start">To Start</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </div>
+
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+</body>
+</html>
