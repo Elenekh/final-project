@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Waddle Board</title>
+        <link rel="stylesheet" href="/static/first-page.css">
+        <link rel="icon" type="image/jpg" href="/static/colored-penguin3024.logowik.png">
+    </head>
+    <body>
+        <header>
+            <nav class="main-nav-bar">
+                <a href="#home" class="logo-wrapper">
+                    <img src="/static/colored-penguin3024.logowik.png" alt="" class="logo-img" width="50" height="50">
+                </a>
+                    <p class="nav-item">Home</p>
+                    <p class="nav-item">Contact</p>
+                    <p class="nav-item">About</p>
+
+                    <div class="header-cta-wrapper">
+                        <a href="{{url_for('login')}}">
+                        <img src="/static/user.png" alt="login-icon" width="40" height="40"></a>
+                    </div>
+            </nav>
+
+        </header>
+        <main>
+            <section class="description"> 
+                <article>
+                    <h2 class="app-description">Wadlle-Board</h2>
+                    <p class="app-description">
+                        WaddleBoard is a user-friendly <span style="color:aqua"><em><strong>Kanban app</strong></em></span> for organizing tasks and workflows. <br>
+                        With customizable boards, drag-and-drop ease, and collaboration tools, it <br>
+                        keeps projects on track and productivity flowing.</p>
+                    <figure class="visual">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Abstract_Kanban_Board.svg/1200px-Abstract_Kanban_Board.svg.png" alt="kanban board example" width="900" height="600" class="visual">
+                        <figcaption>An example image of kanban app</figcaption>
+                    </figure>
+                </article>
+            </section>
+
+            <section>
+                <aside class="additional-info">
+                    <h3>Did You Know?</h3>
+                    <p>Kanban originated in Toyota&#39;s manufacturing <br>
+                        process in the 1940s to streamline production.</p>
+                    <h3>How WaddleBoard Enhances Productivity</h3>
+                    <p>Using WaddleBoard, teams can manage <br>
+                        their workflows effectively...</p>
+                </aside>
+            </section>
+        </main>
+        <footer style="text-align: center;">
+            <p>&copy; 2024 WaddleBoard Inc. All rights reserved.&trade;</p>
+            <address><span>Contact us at:</span><a href="mailto:elene.kharatishvili.1@iliauni.edu.ge">elene.kharatishvili.1@iliauni.edu.ge</a></address>
+        </footer>
+    </body>
+</html>

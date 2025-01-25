@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penguin Themed To-Do List</title>
+    <link rel="stylesheet" href="/static/mainpage-style.css">
+</head>
+<body>
+    <header>Waddle-Board</header>
+
+    <div class="dashboard">
+        <div class="sidebar">
+            <h2>Menu</h2>
+            <ul>
+                <li class="menu-item active">Dashboard</li>
+                <li class="menu-item">Settings</li>
+                <li class="menu-item">Profile</li>
+                <li class="menu-item">History</li>
+            </ul>
+        </div>
+
+        <div class="content" id="content">
+            <div id="dashboard" class="page active">
+                <div class="todo-input">
+                    <input type="text" id="task-input" placeholder="Add a new task...">
+                    <button>Add</button>
+                </div>
+
+                <div class="board">
+                    <div class="column" id="todo-column">
+                        <h3>To Do</h3>
+                        <ul id="todo-list" class="todo-list"></ul>
+                    </div>
+
+                    <div class="column" id="in-progress-column">
+                        <h3>In Progress</h3>
+                        <ul id="in-progress-list" class="todo-list"></ul>
+                    </div>
+
+                    <div class="column" id="done-column">
+                        <h3>Done</h3>
+                        <ul id="done-list" class="todo-list"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="settings" class="page">
+                <h2>Settings Page</h2>
+                <p>Here you can adjust your settings, such as theme or notifications.</p>
+            </div>
+
+            <div id="profile" class="page">
+                <h2>Profile Page</h2>
+                <p>Here you can view and edit your profile details, such as your name and email.</p>
+            </div>
+
+            <div id="history" class="page">
+                <h2>History Page</h2>
+                <p>This is where your past tasks and actions are stored. You can review your completed tasks here.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

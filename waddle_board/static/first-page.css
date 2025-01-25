@@ -1,0 +1,47 @@
+body {
+    background-color: skyblue;
+}
+
+.description {
+    background-color: rgb(61, 164, 192);
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 5px;
+    padding: 5px;
+    color: rgb(0, 0, 0);
+}
+
+.main-nav-bar {
+    display: flex; /* Enables flexbox */
+    align-items: center; /* Aligns items vertically in the center */
+    justify-content: space-between; /* Space between the logo and other items */
+    background-color: rgb(61, 164, 192);
+    padding: 10px 20px; /* Adjust spacing inside the navbar */
+}
+
+.logo-wrapper {
+    margin-right: auto; /* Pushes the logo to the left */
+}
+
+.nav-item {
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    margin: 0 15px; /* Adds spacing between items */
+}
+
+.header-cta-wrapper {
+    align-self: center; /* Aligns the button vertically */
+}
+
+main {
+    padding: 20px;
+    flex: 3; /* Main takes up 3 parts of the available space */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow for better visuals */
+}
+
+aside {
+    padding: 10px;
+    flex: 1; /* Aside takes up 1 part of the available space */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow for better visuals */
+}

@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('https://static.vecteezy.com/system/resources/thumbnails/049/515/108/small_2x/arctic-scene-with-icebergs-and-mountains-cut-out-transparent-png.png') no-repeat center center fixed; /* Arctic Scene Image URL */
+    background-size: cover; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+.auth-container {
+    width: 90%;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.8); 
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 10;
+}
+.auth-container h1 {
+    font-size: 1.8em;
+    color: #333;
+}
+.penguin-img {
+    width: 80px;
+    margin-bottom: 15px;
+}
+.auth-container input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.auth-container button {
+    background: #0077b6;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.auth-container button:hover {
+    background: #005f99;
+}
+.toggle {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #555;
+}
+.toggle a {
+    color: #0077b6;
+    text-decoration: none;
+}
+.penguin-background {
+    position: absolute;
+    z-index: 1;
+    opacity: 0.6; 
+}
+.big-penguin {
+    position: absolute;
+    bottom: -30px;
+    left: 10%;
+    width: 150px;
+}
+.small-penguin {
+    position: absolute;
+    top: 20px;
+    right: 10%;
+    width: 120px; 
+}
+.couple-penguins {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+}
+.left-penguin {
+    position: absolute;
+    left: 5%;
+    top: 10%; 
+    width: 400px; 
+}
+.books-penguin {
+    position: absolute;
+    left: 0%; 
+    bottom: 10%; 
+    width: 600px; 
+}

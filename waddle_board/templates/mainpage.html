@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penguin Themed To-Do List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/task-input-page.css">
+</head>
+<body>
+    <header>
+        Waddle-Board
+        <a href="{{ url_for('log_out') }}"><button class="logout-btn">Logout</button></a>
+    </header>
+
+    <div class="dashboard">
+        <!-- Task Creation Form -->
+        <form class="task-form" method="POST" action="{{ url_for('create_task', username=username) }}">
+            <div class="left">
+                <input type="text" name="Title" placeholder="Task Name" required>
+                <div class="due-to-box">
+                    <input type="date" name="Due_date" id="due-date" required>
+                </div>
+            </div>
+            <div class="priority">
+                <label for="priority">Priority</label>
+                <div class="priority-boxes">
+                    <div>
+                        <input type="radio" name="Priority" id="low" value="Low" required>
+                        <label for="low">Low</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="Priority" id="medium" value="Medium" required>
+                        <label for="medium">Medium</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="Priority" id="high" value="High" required>
+                        <label for="high">High</label>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <textarea name="Description" placeholder="Task Description" required></textarea>
+            </div>
+            <input type="hidden" name="Column" value="To-Do">
+            <button type="submit">Add Task</button>
+        </form>
+
+        <!-- Task Board -->
+        <div class="board">
+            <!-- To-Do Column -->
+            <div class="column">
+                <h3>To Start</h3>
+                <ul class="todo-list">
+                    {% for task in tasks['To-Do'] %}
+                        <li class="todo-item">
+                            {{ task['title'] }}
+                            <span>
+                                <a href="{{ url_for('edit_task', username=username, column='To-Do', task_id=loop.index0) }}">
+                                    <span class="edit-icon">✎</span>
+                                </a>
+                                <form action="{{ url_for('delete_task', username=username, column='To-Do', task_id=loop.index0) }}" method="POST">
+                                    <button type="submit" class="delete-icon">❌</button>
+                                </form>
+                                <form action="{{ url_for('move_task', username=username, task_id=loop.index0) }}" method="POST">
+                                    <select name="new_column">
+                                        <option value="In Progress">In Progress</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                    <button type="submit" class="move-icon">Move</button>
+                                </form>
+                            </span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- In Progress Column -->
+            <div class="column">
+                <h3>In Progress</h3>
+                <ul class="todo-list">
+                    {% for task in tasks['In Progress'] %}
+                        <li class="todo-item">
+                            {{ task['title'] }}
+                            <span>
+                                <a href="{{ url_for('edit_task', username=username, column='In Progress', task_id=loop.index0) }}">
+                                    <span class="edit-icon">✎</span>
+                                </a>
+                                <form action="{{ url_for('delete_task', username=username, column='In Progress', task_id=loop.index0) }}" method="POST">
+                                    <button type="submit" class="delete-icon">❌</button>
+                                </form>
+                                <form action="{{ url_for('move_task', username=username, task_id=loop.index0) }}" method="POST">
+                                    <select name="new_column">
+                                        <option value="To-Do">To-Do</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                    <button type="submit" class="move-icon">Move</button>
+                                </form>
+                            </span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Completed Column -->
+            <div class="column">
+                <h3>Completed</h3>
+                <ul class="todo-list">
+                    {% for task in tasks['Completed'] %}
+                        <li class="todo-item">
+                            {{ task['title'] }}
+                            <span>
+                                <a href="{{ url_for('edit_task', username=username, column='Completed', task_id=loop.index0) }}">
+                                    <span class="edit-icon">✎</span>
+                                </a>
+                                <form action="{{ url_for('delete_task', username=username, column='Completed', task_id=loop.index0) }}" method="POST">
+                                    <button type="submit" class="delete-icon">❌</button>
+                                </form>
+                                <form action="{{ url_for('move_task', username=username, task_id=loop.index0) }}" method="POST">
+                                    <select name="new_column">
+                                        <option value="To-Do">To-Do</option>
+                                        <option value="In Progress">In Progress</option>
+                                    </select>
+                                    <button type="submit" class="move-icon">Move</button>
+                                </form>
+                            </span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
