@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penguin Themed To-Do List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="finaltaskinputpagecss.css">
+</head>
+<body>
+    <header>
+        Waddle-Board
+        <button class="logout-btn">Logout</button>
+    </header>
+
+    <div class="dashboard">
+        <div class="task-form">
+            <div class="left">
+                <input type="text" placeholder="Task Name" required>
+                <div class="due-to-box">
+                    <input type="date" id="due-date" required>
+                </div>
+            </div>
+            <div class="priority">
+                <label for="priority">Priority</label>
+                <div class="priority-boxes">
+                    <div class="priority-low">
+                        <input type="checkbox" id="low">
+                        <label for="low">Low</label>
+                    </div>
+                    <div class="priority-medium">
+                        <input type="checkbox" id="medium">
+                        <label for="medium">Medium</label>
+                    </div>
+                    <div class="priority-high">
+                        <input type="checkbox" id="high">
+                        <label for="high">High</label>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <textarea placeholder="Task Description" required></textarea>
+            </div>
+            <button>Add Task</button>
+        </div>
+
+        <div class="board">
+            <div class="column">
+                <h3>To Start</h3>
+                <ul class="todo-list">
+                    <li class="todo-item">Task 1 <span><span class="edit-icon">✎</span><span class="delete-icon">❌</span></span></li>
+                </ul>
+            </div>
+            <div class="column">
+                <h3>In Progress</h3>
+            </div>
+            <div class="column">
+                <h3>Completed</h3>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
