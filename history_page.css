@@ -1,0 +1,138 @@
+body {
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
+    background: url('https://via.placeholder.com/ffffff/000000') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: relative;
+}
+
+header {
+    background-color: rgba(28, 133, 211, 0.9);
+    color: white;
+    padding: 40px;
+    text-align: center;
+    font-size: 2em;
+}
+
+.dashboard {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+}
+
+.todo-list {
+    flex: 1;
+    overflow-y: auto;
+    list-style: none;
+    padding: 0;
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}
+
+.todo-item button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.todo-item button:hover {
+    background-color: #cc0000;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.top-right-icons {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.logout-btn {
+    background-color: #1c85d3;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background-color: #145a9e;
+}
+
+.history-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin: 0;
+    align-items: center;
+}
+
+.history-header {
+    font-size: 1.5em;
+    text-align: center;
+    font-weight: bold;
+}
+
+.history-item {
+    background-color: #e3f2fd;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 65%;
+    margin-bottom: 10px;
+    margin: 0 auto;
+}
+
+.history-item h4 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.history-item p {
+    margin: 0;
+    font-size: 1em;
+    color: #555;
+}
+
+.history-footer {
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: bold;
+}
