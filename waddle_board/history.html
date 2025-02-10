@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penguin Themed To-Do List - History</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='history.css') }}">
+</head>
+
+<body>
+    <header>Waddle-Board</header>
+
+    <div class="top-right-icons">
+        <a href="{{ url_for('log_out') }}"><button class="logout-btn">Logout</button></a>
+    </div>
+
+    <div class="dashboard">
+        <div class="content" id="content">
+            <div id="history" class="page active">
+                <div class="history-section">
+                    <div class="history-header">Completed Tasks History</div>
+
+                    {% if history %}
+                        {% for task in history %}
+                            <div class="history-item">
+                                <h4>{{ task.title }}</h4>
+                                <p>{{ task.description }}</p>
+                                <p><strong>Completed On:</strong> {{ task.completed_at }}</p>
+                                <button class="details-btn">View Details</button>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="no-history">No completed tasks available.</p>
+                    {% endif %}
+                </div>
+
+                <div class="history-footer">
+                    <p>History of all completed tasks.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
