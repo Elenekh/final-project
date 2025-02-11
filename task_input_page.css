@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: 'Quicksand', sans-serif;
-    background-color: snow; /* Changed to snow white */
+    background-color: snow; 
     color: #333;
     display: flex;
     flex-direction: column;
@@ -54,7 +54,7 @@ header {
     gap: 10px;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-top: 1cm; /* Add this line */
+    margin-top: 1cm;
 }  
 
 .task-form .left, .task-form .right, .task-form .priority {
@@ -97,7 +97,6 @@ header {
     background-color: #145a9e;
 }
 
-/* Updated Priority Section */
 .priority {
     padding: 20px;
     display: flex;
@@ -107,7 +106,7 @@ header {
 }
 
 .priority label {
-    background-color: white; /* White background for the Priority label area */
+    background-color: white; 
     padding: 5px;
     border-radius: 5px;
     font-weight: bold;
@@ -118,7 +117,7 @@ header {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    align-items: center; /* Center checkboxes */
+    align-items: center; 
 }
 
 .priority input[type="checkbox"] {
@@ -128,19 +127,19 @@ header {
 }
 
 .priority-low label {
-    background-color: #1efd00; /* Light Green */
+    background-color: #1efd00;
     padding: 5px;
     border-radius: 5px;
 }
 
 .priority-medium label {
-    background-color: #e5f133; /* Yellow */
+    background-color: #e5f133; 
     padding: 5px;
     border-radius: 5px;
 }
 
 .priority-high label {
-    background-color: #ff1e05; /* Red */
+    background-color: #ff1e05; 
     padding: 5px;
     border-radius: 5px;
 }
